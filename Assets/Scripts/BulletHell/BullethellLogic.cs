@@ -5,6 +5,7 @@ public class BullethellLogic : MonoBehaviour
 {
     [SerializeField] private BulletHellPresetSO[] availablePresets;
     [SerializeField] private BulletHellContext context;
+    [SerializeField] private BH_PlayerController playerController;
 
     private BulletHellPresetSO _currentPreset;
 
@@ -12,6 +13,7 @@ public class BullethellLogic : MonoBehaviour
     {
         _currentPreset = PickPreset();
         StartCoroutine(RunPreset(_currentPreset));
+        playerController.OnPlayerDied += HandlePlayerDied;
     }
 
     private BulletHellPresetSO PickPreset()
@@ -24,7 +26,7 @@ public class BullethellLogic : MonoBehaviour
     {
         foreach (var entry in preset.sequence)
         {
-            StartCoroutine(entry.pattern.Execute(context));
+            StartCoroutine(entry.pattern.Execute(context, entry.overrides));
             yield return new WaitForSeconds(entry.delayBeforeNext);
         }
 
@@ -35,6 +37,12 @@ public class BullethellLogic : MonoBehaviour
     private void OnChallengeSurvived()
     {
         // Signal back to the fishing gameplay loop
+    }
+
+    void HandlePlayerDied()
+    {
+        StopAllCoroutines();
+        // show "fish escaped" / failure state
     }
 
     void Update() { }

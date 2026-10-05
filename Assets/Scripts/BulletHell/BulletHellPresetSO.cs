@@ -8,11 +8,12 @@ public class BulletHellPresetSO : ScriptableObject
     {
         public BulletPatternSO pattern;
         public float delayBeforeNext; // time ("beat") before the next entry starts
+
+        [Header("Per-entry overrides")]
+        public BulletPatternSO.PatternOverrides overrides;
     }
 
     public float difficultyRating = 1f;
     public PatternEntry[] sequence;
-
-    // Optional: randomize order / pull patterns from a shared pool
     public bool shuffleSequence;
 }

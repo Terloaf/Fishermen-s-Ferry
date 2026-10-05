@@ -1,0 +1,80 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19f5e5b58e171bd46b3171d7da3d80c8, type: 3}
+  m_Name: EASY_Preset1
+  m_EditorClassIdentifier: Assembly-CSharp::BulletHellPresetSO
+  difficultyRating: 1
+  sequence:
+  - pattern: {fileID: 11400000, guid: e7b6d02b05fb34a48b49e7d783f00541, type: 2}
+    delayBeforeNext: 2
+    overrides:
+      overridePosition: 0
+      position: {x: 0, y: 0}
+      overrideOrientation: 0
+      orientation: 0
+      overrideRadius: 0
+      radius: 0
+  - pattern: {fileID: 11400000, guid: e7b6d02b05fb34a48b49e7d783f00541, type: 2}
+    delayBeforeNext: 0
+    overrides:
+      overridePosition: 1
+      position: {x: -0.6, y: 0}
+      overrideOrientation: 0
+      orientation: 0
+      overrideRadius: 0
+      radius: 0
+  - pattern: {fileID: 11400000, guid: e7b6d02b05fb34a48b49e7d783f00541, type: 2}
+    delayBeforeNext: 2
+    overrides:
+      overridePosition: 1
+      position: {x: 0.6, y: 1}
+      overrideOrientation: 0
+      orientation: 0
+      overrideRadius: 0
+      radius: 0
+  - pattern: {fileID: 11400000, guid: eb4f160a712131141ac22d1d5faa23b2, type: 2}
+    delayBeforeNext: 1.5
+    overrides:
+      overridePosition: 0
+      position: {x: 0, y: 0}
+      overrideOrientation: 0
+      orientation: 1
+      overrideRadius: 1
+      radius: 200
+  - pattern: {fileID: 11400000, guid: e7b6d02b05fb34a48b49e7d783f00541, type: 2}
+    delayBeforeNext: 0
+    overrides:
+      overridePosition: 1
+      position: {x: -0.6, y: 0}
+      overrideOrientation: 1
+      orientation: 1
+      overrideRadius: 0
+      radius: 0
+  - pattern: {fileID: 11400000, guid: e7b6d02b05fb34a48b49e7d783f00541, type: 2}
+    delayBeforeNext: 1
+    overrides:
+      overridePosition: 1
+      position: {x: 0.6, y: 0}
+      overrideOrientation: 1
+      orientation: 1
+      overrideRadius: 0
+      radius: 0
+  - pattern: {fileID: 11400000, guid: eb4f160a712131141ac22d1d5faa23b2, type: 2}
+    delayBeforeNext: 0
+    overrides:
+      overridePosition: 0
+      position: {x: 0, y: 0}
+      overrideOrientation: 0
+      orientation: 1
+      overrideRadius: 1
+      radius: 200
+  shuffleSequence: 0

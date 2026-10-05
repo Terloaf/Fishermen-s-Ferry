@@ -3,10 +3,24 @@ using UnityEngine;
 public abstract class BulletPatternSO : ScriptableObject
 {
     [Header("Common settings")]
-    public float telegraphDuration = 0.5f; // warning time before the attack fires
-    public GameObject warningPrefab;        // visual telegraph ("danger here")
-    public GameObject attackPrefab;         // the actual projectile/wall/laser
+    public float telegraphDuration = 0.5f;
+    public GameObject warningPrefab;
+    public GameObject attackPrefab;
 
-    // Each pattern implements its own spawn logic
-    public abstract System.Collections.IEnumerator Execute(BulletHellContext ctx);
+    [System.Serializable]
+    public struct PatternOverrides
+    {
+        public bool overridePosition;
+
+        [Range01Vector2]
+        public Vector2 position;
+
+        public bool overrideOrientation;
+        public WallPatternSO.Orientation orientation;
+
+        public bool overrideRadius;
+        public float radius;
+    }
+
+    public abstract System.Collections.IEnumerator Execute(BulletHellContext ctx, PatternOverrides overrides);
 }

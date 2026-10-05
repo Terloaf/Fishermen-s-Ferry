@@ -1,31 +1,47 @@
 using UnityEngine;
 
-// Simple obstacle that moves toward a target direction at a fixed speed
+// Moves a UI element (RectTransform) at a fixed speed along a direction
+[RequireComponent(typeof(RectTransform))]
 public class MovingObstacle : MonoBehaviour
 {
-    private Vector3 _direction;
+    private RectTransform _rect;
+    private Vector2 _direction;
     private float _speed;
     private bool _initialized;
+    private Rect? _destroyBounds;
 
-    public void Init(float speed, Vector3 targetPosition)
+    void Awake()
     {
-        _direction = (targetPosition - transform.position).normalized;
+        _rect = GetComponent<RectTransform>();
+    }
+
+    public void Init(float speed, Vector2 targetAnchoredPosition)
+    {
+        _direction = (targetAnchoredPosition - _rect.anchoredPosition).normalized;
         _speed = speed;
+        _initialized = true;
+    }
+
+    // Explicit direction, used by walls moving straight across the arena
+    public void InitDirectional(float speed, Vector2 direction, Rect? destroyBounds = null)
+    {
+        _direction = direction.normalized;
+        _speed = speed;
+        _destroyBounds = destroyBounds;
         _initialized = true;
     }
 
     void Update()
     {
         if (!_initialized) return;
-        transform.position += _direction * _speed * Time.deltaTime;
-    }
+        _rect.anchoredPosition += _direction * _speed * Time.deltaTime;
 
-    // Optional: destroy self when colliding with the player
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.CompareTag("PlayerHitbox"))
+        if (_destroyBounds.HasValue && !_destroyBounds.Value.Contains(_rect.anchoredPosition))
         {
-            // Hook into your health/damage system here
+            Destroy(gameObject);
         }
     }
+
+    // Optional: handled via a UI-based hit detection script instead of physics trigger,
+    // since Canvas Image objects usually don't rely on Collider2D.
 }
