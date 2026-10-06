@@ -18,11 +18,17 @@ MonoBehaviour:
     delayBeforeNext: 2
     overrides:
       overridePosition: 0
-      position: {x: 0, y: 0}
+      position: {x: -1, y: 0}
       overrideOrientation: 0
       orientation: 0
       overrideRadius: 0
       radius: 0
+      overrideSize: 0
+      size: 0
+      overrideSpeed: 0
+      speed: 0
+      overrideSide: 0
+      side: 0
   - pattern: {fileID: 11400000, guid: e7b6d02b05fb34a48b49e7d783f00541, type: 2}
     delayBeforeNext: 0
     overrides:
@@ -32,6 +38,12 @@ MonoBehaviour:
       orientation: 0
       overrideRadius: 0
       radius: 0
+      overrideSize: 0
+      size: 0
+      overrideSpeed: 0
+      speed: 0
+      overrideSide: 0
+      side: 0
   - pattern: {fileID: 11400000, guid: e7b6d02b05fb34a48b49e7d783f00541, type: 2}
     delayBeforeNext: 2
     overrides:
@@ -41,6 +53,12 @@ MonoBehaviour:
       orientation: 0
       overrideRadius: 0
       radius: 0
+      overrideSize: 0
+      size: 0
+      overrideSpeed: 0
+      speed: 0
+      overrideSide: 0
+      side: 0
   - pattern: {fileID: 11400000, guid: eb4f160a712131141ac22d1d5faa23b2, type: 2}
     delayBeforeNext: 1.5
     overrides:
@@ -50,6 +68,12 @@ MonoBehaviour:
       orientation: 1
       overrideRadius: 1
       radius: 200
+      overrideSize: 0
+      size: 0
+      overrideSpeed: 0
+      speed: 0
+      overrideSide: 0
+      side: 0
   - pattern: {fileID: 11400000, guid: e7b6d02b05fb34a48b49e7d783f00541, type: 2}
     delayBeforeNext: 0
     overrides:
@@ -59,6 +83,12 @@ MonoBehaviour:
       orientation: 1
       overrideRadius: 0
       radius: 0
+      overrideSize: 0
+      size: 0
+      overrideSpeed: 0
+      speed: 0
+      overrideSide: 0
+      side: 0
   - pattern: {fileID: 11400000, guid: e7b6d02b05fb34a48b49e7d783f00541, type: 2}
     delayBeforeNext: 1
     overrides:
@@ -68,6 +98,12 @@ MonoBehaviour:
       orientation: 1
       overrideRadius: 0
       radius: 0
+      overrideSize: 0
+      size: 0
+      overrideSpeed: 0
+      speed: 0
+      overrideSide: 0
+      side: 0
   - pattern: {fileID: 11400000, guid: eb4f160a712131141ac22d1d5faa23b2, type: 2}
     delayBeforeNext: 0
     overrides:
@@ -77,4 +113,85 @@ MonoBehaviour:
       orientation: 1
       overrideRadius: 1
       radius: 200
+      overrideSize: 0
+      size: 0
+      overrideSpeed: 0
+      speed: 0
+      overrideSide: 0
+      side: 0
+  - pattern: {fileID: 11400000, guid: cb94dd25d8e74f34d9056dd9141f6994, type: 2}
+    delayBeforeNext: 0.5
+    overrides:
+      overridePosition: 1
+      position: {x: 0.39, y: 0}
+      overrideOrientation: 0
+      orientation: 1
+      overrideRadius: 1
+      radius: 200
+      overrideSize: 0
+      size: 0
+      overrideSpeed: 0
+      speed: 0
+      overrideSide: 1
+      side: 3
+  - pattern: {fileID: 11400000, guid: cb94dd25d8e74f34d9056dd9141f6994, type: 2}
+    delayBeforeNext: 0.5
+    overrides:
+      overridePosition: 1
+      position: {x: -0.33, y: 0}
+      overrideOrientation: 0
+      orientation: 1
+      overrideRadius: 1
+      radius: 200
+      overrideSize: 0
+      size: 0
+      overrideSpeed: 0
+      speed: 0
+      overrideSide: 1
+      side: 3
+  - pattern: {fileID: 11400000, guid: cb94dd25d8e74f34d9056dd9141f6994, type: 2}
+    delayBeforeNext: 0.5
+    overrides:
+      overridePosition: 1
+      position: {x: 0.05, y: 0}
+      overrideOrientation: 0
+      orientation: 1
+      overrideRadius: 1
+      radius: 200
+      overrideSize: 0
+      size: 0
+      overrideSpeed: 0
+      speed: 0
+      overrideSide: 1
+      side: 3
+  - pattern: {fileID: 11400000, guid: cb94dd25d8e74f34d9056dd9141f6994, type: 2}
+    delayBeforeNext: 0.5
+    overrides:
+      overridePosition: 1
+      position: {x: -0.59, y: 0}
+      overrideOrientation: 0
+      orientation: 1
+      overrideRadius: 1
+      radius: 200
+      overrideSize: 0
+      size: 0
+      overrideSpeed: 0
+      speed: 0
+      overrideSide: 1
+      side: 3
+  - pattern: {fileID: 11400000, guid: cb94dd25d8e74f34d9056dd9141f6994, type: 2}
+    delayBeforeNext: 0.5
+    overrides:
+      overridePosition: 1
+      position: {x: -0.06, y: 0}
+      overrideOrientation: 0
+      orientation: 1
+      overrideRadius: 1
+      radius: 200
+      overrideSize: 0
+      size: 0
+      overrideSpeed: 0
+      speed: 0
+      overrideSide: 1
+      side: 3
   shuffleSequence: 0
