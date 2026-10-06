@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2dd1ab2fe774904382f58db14a37587, type: 3}
+  m_Name: WallPattern
+  m_EditorClassIdentifier: Assembly-CSharp::WallPatternSO
+  telegraphDuration: 1
+  warningPrefab: {fileID: 8384969735483595754, guid: b74bdf13949567d4a9f35ba92b2f2ec3, type: 3}
+  attackPrefab: {fileID: 8384969735483595754, guid: 4cb5a505aeebf214288110cf67ec960e, type: 3}
+  orientation: 0
+  position: 0
+  thickness: 20
+  blinkInterval: 0.15
+  activeDuration: 0.6
+  telegraphColor: {r: 1, g: 0, b: 0, a: 0.35}
+  solidColor: {r: 1, g: 0, b: 0, a: 1}
