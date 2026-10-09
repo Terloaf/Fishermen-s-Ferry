@@ -53,9 +53,6 @@ public class FIshingSystem : MonoBehaviour
 
     }
 
-
-
-
     // Random time between fish biting hook
     private IEnumerator WaitForBite()
     {
