@@ -31,7 +31,6 @@ public class FIshingSystem : MonoBehaviour
         {
             if (isFishing == false) // && bullet hell thing isnt active
             {
-                // ignore this for now
                 if(animator.GetBool("isCasting") == false)
                 {
                     animator.SetBool("isCasting", true);
