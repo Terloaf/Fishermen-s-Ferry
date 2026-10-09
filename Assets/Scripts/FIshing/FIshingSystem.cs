@@ -55,11 +55,7 @@ public class FIshingSystem : MonoBehaviour
     }
 
 
-    public void OnLeftClick()
-    {
 
-        
-    }
 
 
     // Random time between fish biting hook
