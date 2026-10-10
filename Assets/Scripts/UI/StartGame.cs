@@ -5,10 +5,12 @@ public class StartGame : MonoBehaviour
     public FIshingSystem fishingSystem;
     public Animator animator;
     public UIManager uiManager;
+    public GameTimer gameTimer;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         uiManager = GetComponent<UIManager>();
+        gameTimer = GetComponent<GameTimer>();
         fishingSystem.enabled = false;
     }
 
@@ -24,6 +26,9 @@ public class StartGame : MonoBehaviour
         fishingSystem.enabled = true;
         animator.SetBool("Start", true);
         uiManager.startCanvas.enabled = false;
+        gameTimer.StartTimer();
+
+        
 
     }
   
