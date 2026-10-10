@@ -69,6 +69,13 @@ public class ProjectilePatternSO : BulletPatternSO
             bounds.width + 400f, bounds.height + 400f);
 
         obstacle.InitDirectional(effectiveSpeed, moveDirection, expandedBounds);
+
+        // Wait until the projectile actually leaves the arena and destroys itself,
+        // so the pattern's Execute() coroutine only finishes once it's truly gone.
+        while (projectile != null)
+        {
+            yield return null;
+        }
     }
 
     private Vector2 GetSpawnPosition(Rect bounds, SpawnSide side, float position)
