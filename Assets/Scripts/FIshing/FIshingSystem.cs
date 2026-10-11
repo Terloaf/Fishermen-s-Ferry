@@ -21,6 +21,11 @@ public class FIshingSystem : MonoBehaviour
     [Header("Main character control")]
     [SerializeField] private CharacterController mainCharacterController; // disabled while the bullet hell challenge is active
 
+    [Header("Facing restriction")]
+    [Tooltip("Fishing is only allowed when the character's Y rotation is at this angle (degrees).")]
+    [SerializeField] private float requiredFacingAngle = 0f;
+    [SerializeField] private float facingAngleTolerance = 1f;
+
     private bool _challengeResultReceived;
     private bool _challengeSurvived;
 
@@ -58,7 +63,7 @@ public class FIshingSystem : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            if (!isFishing)
+            if (!isFishing && IsFacingCorrectDirection())
             {
                 bool isCasting = animator.GetBool("isCasting");
                 animator.SetBool("isCasting", !isCasting);
@@ -69,10 +74,26 @@ public class FIshingSystem : MonoBehaviour
         }
     }
 
+    // Checks whether the character is currently facing the side where fishing is allowed
+    private bool IsFacingCorrectDirection()
+    {
+        if (mainCharacterController == null) return true; // fallback: no restriction if not assigned
+
+        float currentAngle = mainCharacterController.transform.eulerAngles.y;
+        float difference = Mathf.Abs(Mathf.DeltaAngle(currentAngle, requiredFacingAngle));
+
+        return difference <= facingAngleTolerance;
+    }
+
     private IEnumerator FishingSequence()
     {
+        // Prevent turning while the player is waiting for a bite
+        if (mainCharacterController != null) mainCharacterController.enabled = false;
+
         // Wait for a bite
         yield return StartCoroutine(WaitForBite());
+
+        if (mainCharacterController != null) mainCharacterController.enabled = true;
 
         selectedFish = fishTypes[UnityEngine.Random.Range(0, fishTypes.Count)];
 
@@ -102,13 +123,11 @@ public class FIshingSystem : MonoBehaviour
     {
         _challengeResultReceived = false;
 
-        // Disable the main character controller so the player can't move the boat/character mid-challenge
+        // Already disabled during the bite wait, but keep disabled through the challenge too
         if (mainCharacterController != null)
         {
             mainCharacterController.enabled = false;
         }
-
-        
 
         if (bulletHellCanvasGroup != null)
         {
