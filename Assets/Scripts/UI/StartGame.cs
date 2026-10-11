@@ -10,10 +10,12 @@ public class StartGame : MonoBehaviour
     [Tooltip("Name of the Animator state that plays when the game starts (used to detect when it finishes).")]
     [SerializeField] private string startStateName = "Start";
 
+    public GameTimer gameTimer;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         uiManager = GetComponent<UIManager>();
+        gameTimer = GetComponent<GameTimer>();
         fishingSystem.enabled = false;
     }
 
@@ -24,6 +26,9 @@ public class StartGame : MonoBehaviour
     {
         animator.SetBool("Start", true);
         uiManager.startCanvas.enabled = false;
+        gameTimer.StartTimer();
+
+        
 
         // Keep fishing disabled until the start animation has fully played
         StartCoroutine(EnableFishingAfterAnimation());
