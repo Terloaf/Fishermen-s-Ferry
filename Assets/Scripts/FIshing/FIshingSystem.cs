@@ -14,8 +14,12 @@ public class FIshingSystem : MonoBehaviour
 
     [Header("Bullet hell integration")]
     [SerializeField] private BullethellLogic bullethellLogic;
-    [SerializeField] private CanvasGroup bulletHellCanvasGroup; // on the bullet hell canvas prefab, starts disabled
+    [SerializeField] private CanvasGroup bulletHellCanvasGroup;
     [SerializeField] private float fadeDuration = 0.4f;
+    [SerializeField] private float preChallengeBuffer = 1.5f; // pause after fade-in, before attacks start
+
+    [Header("Main character control")]
+    [SerializeField] private CharacterController mainCharacterController; // disabled while the bullet hell challenge is active
 
     private bool _challengeResultReceived;
     private bool _challengeSurvived;
@@ -81,9 +85,11 @@ public class FIshingSystem : MonoBehaviour
         }
         else
         {
-            FishEscaped();
+            FishEscaped(); // the fish breaks free from the hook, nothing else happens
         }
 
+        // Reset the rod/animation state so the player can cast again
+        animator.SetBool("isCasting", false);
         isFishing = false;
     }
 
@@ -96,14 +102,33 @@ public class FIshingSystem : MonoBehaviour
     {
         _challengeResultReceived = false;
 
-        // Fade the bullet hell canvas in
+        // Disable the main character controller so the player can't move the boat/character mid-challenge
+        if (mainCharacterController != null)
+        {
+            mainCharacterController.enabled = false;
+        }
+
+        
+
         if (bulletHellCanvasGroup != null)
         {
             bulletHellCanvasGroup.gameObject.SetActive(true);
             bulletHellCanvasGroup.interactable = true;
             bulletHellCanvasGroup.blocksRaycasts = true;
+            bulletHellCanvasGroup.alpha = 0f; // ensure it starts invisible even though it's already active
+        }
+
+        // Reset player position/health right as the canvas starts becoming visible,
+        // so any pre-buffer movement doesn't get overwritten by a late reset/teleport.
+        bullethellLogic.PrepareForChallenge();
+
+        if (bulletHellCanvasGroup != null)
+        {
             yield return StartCoroutine(FadeCanvasGroup(bulletHellCanvasGroup, 0f, 1f));
         }
+
+        // Give the player a moment to get oriented before the attacks start
+        yield return new WaitForSeconds(preChallengeBuffer);
 
         bullethellLogic.StartChallenge();
 
@@ -120,6 +145,12 @@ public class FIshingSystem : MonoBehaviour
             bulletHellCanvasGroup.interactable = false;
             bulletHellCanvasGroup.blocksRaycasts = false;
             bulletHellCanvasGroup.gameObject.SetActive(false);
+        }
+
+        // Re-enable the main character controller now that the challenge is over
+        if (mainCharacterController != null)
+        {
+            mainCharacterController.enabled = true;
         }
     }
 
@@ -158,7 +189,7 @@ public class FIshingSystem : MonoBehaviour
 
     private void FishEscaped()
     {
-        // TODO: play "fish got away" feedback
+        // The fish breaks free from the hook; intentionally no reward/feedback beyond the rod resetting
         Debug.Log("The fish got away!");
     }
 }

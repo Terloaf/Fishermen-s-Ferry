@@ -8,13 +8,14 @@ public class BullethellLogic : MonoBehaviour
     [SerializeField] private BH_PlayerController playerController;
 
     [Header("End-of-level timing")]
-    [SerializeField] private float endBuffer = 2.5f; // extra pause after the last hazard disappears, before fading out
+    [SerializeField] private float endBuffer = 1.5f; // extra pause after the last hazard disappears, before fading out
 
     public event System.Action OnChallengeSurvived;
     public event System.Action OnChallengeFailed;
 
     private Coroutine _runningRoutine;
     private bool _challengeActive;
+    private BulletHellPresetSO _preparedPreset;
 
     void OnEnable()
     {
@@ -32,17 +33,30 @@ public class BullethellLogic : MonoBehaviour
         }
     }
 
-    // Call this from the fishing system to start a bullet hell challenge
+    // Call this as soon as the bullet hell canvas starts appearing (fade-in begins),
+    // so the player position/health resets before they can see/move during the buffer.
+    public void PrepareForChallenge()
+    {
+        CleanupActiveHazards();
+        if (playerController != null) playerController.ResetHealth();
+
+        _preparedPreset = PickPreset();
+    }
+
+    // Call this once the pre-challenge buffer has elapsed, to actually start the attack sequence.
     public void StartChallenge()
     {
         if (_challengeActive) return;
 
-        CleanupActiveHazards();
-        if (playerController != null) playerController.ResetHealth();
+        // Fallback in case PrepareForChallenge wasn't called beforehand
+        if (_preparedPreset == null)
+        {
+            PrepareForChallenge();
+        }
 
-        var preset = PickPreset();
         _challengeActive = true;
-        _runningRoutine = StartCoroutine(RunPreset(preset));
+        _runningRoutine = StartCoroutine(RunPreset(_preparedPreset));
+        _preparedPreset = null;
     }
 
     // Call this if the fishing system needs to forcibly stop (e.g. scene change)

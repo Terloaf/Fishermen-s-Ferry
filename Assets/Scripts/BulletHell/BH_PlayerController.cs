@@ -129,5 +129,8 @@ public class BH_PlayerController : MonoBehaviour
             _blinkRoutine = null;
         }
         SetVisualAlpha(1f);
+
+        // Reset the player's position back to the center of the arena for the next attempt
+        _rect.anchoredPosition = Vector2.zero;
     }
 }

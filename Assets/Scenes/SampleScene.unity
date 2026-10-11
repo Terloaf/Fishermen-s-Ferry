@@ -488,6 +488,8 @@ MonoBehaviour:
   bullethellLogic: {fileID: 2019448351}
   bulletHellCanvasGroup: {fileID: 2019448352}
   fadeDuration: 0.4
+  preChallengeBuffer: 3
+  mainCharacterController: {fileID: 1333978976}
 --- !u!4 &379966172
 Transform:
   m_ObjectHideFlags: 0
@@ -518,6 +520,7 @@ MonoBehaviour:
   fishingSystem: {fileID: 379966171}
   animator: {fileID: 330585548}
   uiManager: {fileID: 0}
+  startStateName: Start
 --- !u!114 &379966174
 MonoBehaviour:
   m_ObjectHideFlags: 0
