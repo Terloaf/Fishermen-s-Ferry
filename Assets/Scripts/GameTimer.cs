@@ -28,6 +28,7 @@ public class GameTimer : MonoBehaviour
 
     void Start()
     {
+        
         timerTime = maxTime;
     }
 

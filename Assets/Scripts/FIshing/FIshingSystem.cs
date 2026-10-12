@@ -11,6 +11,8 @@ public class FIshingSystem : MonoBehaviour
     [Header("Fish selection")]
     public List<GameObject> fishTypes = new List<GameObject>();
     public GameObject selectedFish;
+    [SerializeField]
+    private FishCollectionManager fishCollectionManager;
 
     [Header("Bullet hell integration")]
     [SerializeField] private BullethellLogic bullethellLogic;
@@ -31,6 +33,7 @@ public class FIshingSystem : MonoBehaviour
 
     void Start()
     {
+        fishCollectionManager = GameObject.Find("CollectionCanvas").GetComponent<FishCollectionManager>();
         // Ensure the bullet hell canvas starts fully hidden and non-interactive
         if (bulletHellCanvasGroup != null)
         {
@@ -103,6 +106,8 @@ public class FIshingSystem : MonoBehaviour
         if (_challengeSurvived)
         {
             ReelInFish();
+            fishCollectionManager.AddFish(selectedFish.ToString(), selectedFish.GetComponent<SpriteRenderer>());
+            fishTypes.Remove(selectedFish);
         }
         else
         {

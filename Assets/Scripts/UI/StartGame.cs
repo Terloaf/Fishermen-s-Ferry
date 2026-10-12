@@ -16,6 +16,8 @@ public class StartGame : MonoBehaviour
     {
         uiManager = GetComponent<UIManager>();
         gameTimer = GetComponent<GameTimer>();
+
+        uiManager.gameplayCanvas.enabled = false;
         fishingSystem.enabled = false;
     }
 
@@ -26,7 +28,8 @@ public class StartGame : MonoBehaviour
     {
         animator.SetBool("Start", true);
         uiManager.startCanvas.enabled = false;
-        gameTimer.StartTimer();
+       
+       
 
         
 
@@ -52,5 +55,7 @@ public class StartGame : MonoBehaviour
         }
 
         fishingSystem.enabled = true;
+        uiManager.gameplayCanvas.enabled = true;
+        gameTimer.StartTimer();
     }
 }
