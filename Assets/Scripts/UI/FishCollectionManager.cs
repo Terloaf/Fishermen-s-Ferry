@@ -2,9 +2,28 @@ using UnityEngine;
 
 public class FishCollectionManager : MonoBehaviour
 {
+    public static FishCollectionManager Instance { get; private set; }
+
     public GameObject fishCollectableMenu;
     private bool isMenuOpen;
     public FishSlot[] fishSlot;
+
+    public int FishCount
+    {
+        get
+        {
+            int count = 0;
+            foreach (var slot in fishSlot)
+            {
+                if (slot.isFilled)
+                {
+                    count++;
+                }
+            }
+            return count;
+        }
+    }
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
