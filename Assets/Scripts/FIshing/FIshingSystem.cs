@@ -5,7 +5,7 @@ using TMPro;
 
 public class FIshingSystem : MonoBehaviour
 {
-    private bool isFishing;
+    public bool isFishing;
     public AnimationClip castingLine;
     public Animator animator;
 

@@ -14,6 +14,8 @@ public class FishCollectionManager : MonoBehaviour
     [Header("Canvas references")]
     [SerializeField] private GameObject gameplayCanvas; // hidden while the collection menu is open
 
+    private FIshingSystem fishingSystem;
+
     public int FishCount
     {
         get
@@ -40,6 +42,12 @@ public class FishCollectionManager : MonoBehaviour
         Instance = this;
     }
 
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    void Start()
+    {
+        fishingSystem = GameObject.Find("GameManager").GetComponent<FIshingSystem>();
+    }
+
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape) && isMenuOpen)
@@ -57,6 +65,7 @@ public class FishCollectionManager : MonoBehaviour
         Time.timeScale = 0;
         fishCollectableMenu.SetActive(true);
         if (gameplayCanvas != null) gameplayCanvas.SetActive(false);
+        fishingSystem.isFishing = true;
         isMenuOpen = true;
     }
 
@@ -65,6 +74,7 @@ public class FishCollectionManager : MonoBehaviour
         Time.timeScale = 1;
         fishCollectableMenu.SetActive(false);
         if (gameplayCanvas != null) gameplayCanvas.SetActive(true);
+        fishingSystem.isFishing = false;
         isMenuOpen = false;
     }
 
@@ -87,6 +97,15 @@ public class FishCollectionManager : MonoBehaviour
                 fishSlot[i].AddFish(fishName, fishSprite);
                 return;
             }
+        }
+    }
+
+    public void DeselectAllSlots()
+    {
+        for (int i = 0; i < fishSlot.Length; i++)
+        {
+            fishSlot[i].selectedSahder.SetActive(false);
+            fishSlot[i].thisFishSelected = false;
         }
     }
 }
