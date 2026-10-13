@@ -159,7 +159,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fe0b918fd61258429159f1495617937, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerHitDetector
-  playerRect: {fileID: 970943313553508596}
+  playerCollider: {fileID: 2944894232271238001}
   invulnerabilityDuration: 0.5
   logHitsToConsole: 1
 --- !u!58 &2944894232271238001
