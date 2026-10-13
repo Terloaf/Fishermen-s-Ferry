@@ -44,5 +44,11 @@ public class GameTimer : MonoBehaviour
             timerTime -= Time.deltaTime;
             timerBar.fillAmount = timerTime / maxTime;
         }
+
+        if (timerTime <= 0)
+        {
+            isPlaying = false;
+            ResultsScreen.Instance.ShowResults(FishCollectionManager.Instance.FishCount >= ResultsScreen.Instance.fishThershhold);
+        }
     }
 }
