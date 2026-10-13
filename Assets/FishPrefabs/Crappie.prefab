@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 61670600967746299}
   - component: {fileID: 5372314001589196657}
   m_Layer: 0
-  m_Name: FishEasy 7
+  m_Name: Crappie
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -82,7 +82,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: e8746648f19c4b848b7e0391d4fc17ef, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 244a97562b97a8849b322de50bb2d973, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -105,4 +105,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FishStats
   difficultyRating: 1
-  fishName: 
