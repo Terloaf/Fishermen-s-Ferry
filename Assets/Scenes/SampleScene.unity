@@ -131,6 +131,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: FishTypeSlot (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 5538323674094003666, guid: fb4d3a06611ae5341a967d876d346031, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5887481635363937013, guid: fb4d3a06611ae5341a967d876d346031, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -497,6 +501,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: FishTypeSlot (7)
       objectReference: {fileID: 0}
+    - target: {fileID: 5538323674094003666, guid: fb4d3a06611ae5341a967d876d346031, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5887481635363937013, guid: fb4d3a06611ae5341a967d876d346031, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -788,6 +796,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: FishTypeSlot (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 5538323674094003666, guid: fb4d3a06611ae5341a967d876d346031, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5887481635363937013, guid: fb4d3a06611ae5341a967d876d346031, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -922,6 +934,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 524b6fa340276f84ea4e3768e0aec481, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FIshingSystem
+  isFishing: 0
   castingLine: {fileID: 0}
   animator: {fileID: 88602803}
   fishTypes:
@@ -1016,6 +1029,11 @@ MonoBehaviour:
   dialogueText: {fileID: 1703001001}
   portraitImage: {fileID: 666396904}
   charactersPerSecond: 30
+--- !u!1 &391499895 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5538323674094003666, guid: fb4d3a06611ae5341a967d876d346031, type: 3}
+  m_PrefabInstance: {fileID: 7896164914746680732}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -1154,6 +1172,10 @@ PrefabInstance:
     - target: {fileID: 1069082633191450568, guid: fb4d3a06611ae5341a967d876d346031, type: 3}
       propertyPath: m_Name
       value: FishTypeSlot (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5538323674094003666, guid: fb4d3a06611ae5341a967d876d346031, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5887481635363937013, guid: fb4d3a06611ae5341a967d876d346031, type: 3}
       propertyPath: m_Pivot.x
@@ -1377,6 +1399,10 @@ PrefabInstance:
     - target: {fileID: 1069082633191450568, guid: fb4d3a06611ae5341a967d876d346031, type: 3}
       propertyPath: m_Name
       value: FishTypeSlot (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5538323674094003666, guid: fb4d3a06611ae5341a967d876d346031, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5887481635363937013, guid: fb4d3a06611ae5341a967d876d346031, type: 3}
       propertyPath: m_Pivot.x
@@ -1678,6 +1704,10 @@ PrefabInstance:
     - target: {fileID: 1069082633191450568, guid: fb4d3a06611ae5341a967d876d346031, type: 3}
       propertyPath: m_Name
       value: FishTypeSlot (9)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5538323674094003666, guid: fb4d3a06611ae5341a967d876d346031, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5887481635363937013, guid: fb4d3a06611ae5341a967d876d346031, type: 3}
       propertyPath: m_Pivot.x
@@ -2321,6 +2351,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: FishTypeSlot (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 5538323674094003666, guid: fb4d3a06611ae5341a967d876d346031, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5887481635363937013, guid: fb4d3a06611ae5341a967d876d346031, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -2529,6 +2563,10 @@ PrefabInstance:
     - target: {fileID: 1069082633191450568, guid: fb4d3a06611ae5341a967d876d346031, type: 3}
       propertyPath: m_Name
       value: FishTypeSlot (8)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5538323674094003666, guid: fb4d3a06611ae5341a967d876d346031, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5887481635363937013, guid: fb4d3a06611ae5341a967d876d346031, type: 3}
       propertyPath: m_Pivot.x
@@ -2758,7 +2796,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1038686974
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3802,6 +3840,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: FishTypeSlot (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 5538323674094003666, guid: fb4d3a06611ae5341a967d876d346031, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5887481635363937013, guid: fb4d3a06611ae5341a967d876d346031, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -4271,6 +4313,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: FishTypeSlot
       objectReference: {fileID: 0}
+    - target: {fileID: 5538323674094003666, guid: fb4d3a06611ae5341a967d876d346031, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5887481635363937013, guid: fb4d3a06611ae5341a967d876d346031, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -4351,6 +4397,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8511532944121260464, guid: fb4d3a06611ae5341a967d876d346031, type: 3}
+      propertyPath: selectedSahder
+      value: 
+      objectReference: {fileID: 391499895}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4379,9 +4429,9 @@ SceneRoots:
   - {fileID: 1333978974}
   - {fileID: 88602801}
   - {fileID: 1851725498}
-  - {fileID: 1675370592}
   - {fileID: 2019448349}
   - {fileID: 127433866}
   - {fileID: 769897337}
   - {fileID: 1038686977}
   - {fileID: 818052897}
+  - {fileID: 1675370592}
