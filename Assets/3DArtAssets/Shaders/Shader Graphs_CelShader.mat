@@ -55,11 +55,11 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Lighting_Cutoff: -0.19
+    - _Lighting_Cutoff: -0.14
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _ShadowBrightness: 0.402
+    - _ShadowBrightness: 0.296
     m_Colors:
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Color: {r: 0.41688207, g: 0.1940547, b: 0.89433956, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
