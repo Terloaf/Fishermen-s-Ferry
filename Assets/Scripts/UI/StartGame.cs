@@ -6,6 +6,7 @@ public class StartGame : MonoBehaviour
     public FIshingSystem fishingSystem;
     public Animator animator;
     public UIManager uiManager;
+    public BoatMover boatMover;
 
     [Tooltip("Name of the Animator state that plays when the game starts (used to detect when it finishes).")]
     [SerializeField] private string startStateName = "Start";
@@ -28,10 +29,9 @@ public class StartGame : MonoBehaviour
     {
         animator.SetBool("Start", true);
         uiManager.startCanvas.enabled = false;
-       
-       
 
-        
+        boatMover.BeginMoving(); // start the boat moving
+
 
         // Keep fishing disabled until the start animation has fully played
         StartCoroutine(EnableFishingAfterAnimation());
