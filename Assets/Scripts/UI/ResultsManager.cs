@@ -1,5 +1,7 @@
+using JetBrains.Annotations;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ResultsManager : MonoBehaviour
 {
@@ -135,5 +137,10 @@ public class ResultsManager : MonoBehaviour
         {
             resultMessageText.text = quotaMet ? successMessage : failMessage;
         }
+    }
+
+    public void LoadMainMenu()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

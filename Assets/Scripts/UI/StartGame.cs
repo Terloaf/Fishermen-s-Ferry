@@ -40,6 +40,12 @@ public class StartGame : MonoBehaviour
         StartCoroutine(EnableFishingAfterAnimation());
     }
 
+    public void QuitGame()
+    {
+        Debug.Log("[StartGame] Quitting game.");
+        Application.Quit();
+    }
+
     private IEnumerator EnableFishingAfterAnimation()
     {
         // Wait one frame so the Animator has a chance to transition into the start state
