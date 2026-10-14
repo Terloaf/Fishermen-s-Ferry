@@ -8,6 +8,12 @@ public class FishCollectionManager : MonoBehaviour
     private bool isMenuOpen;
     public FishSlot[] fishSlot;
 
+    [Header("Blocking conditions")]
+    [SerializeField] private BullethellLogic bullethellLogic;
+
+    [Header("Canvas references")]
+    [SerializeField] private GameObject gameplayCanvas; // hidden while the collection menu is open
+
     public int FishCount
     {
         get
@@ -34,27 +40,41 @@ public class FishCollectionManager : MonoBehaviour
         Instance = this;
     }
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Escape) && isMenuOpen)
+        if (Input.GetKeyDown(KeyCode.Escape) && isMenuOpen)
         {
-            Time.timeScale = 1;
-            fishCollectableMenu.SetActive(false);
-            isMenuOpen = false;
+            CloseMenu();
         }
-        else if (Input.GetKeyDown(KeyCode.Escape) && !isMenuOpen)
+        else if (Input.GetKeyDown(KeyCode.Escape) && !isMenuOpen && CanOpenMenu())
         {
-            Time.timeScale = 0;
-            fishCollectableMenu.SetActive(true);
-            isMenuOpen = true;
+            OpenMenu();
         }
+    }
+
+    private void OpenMenu()
+    {
+        Time.timeScale = 0;
+        fishCollectableMenu.SetActive(true);
+        if (gameplayCanvas != null) gameplayCanvas.SetActive(false);
+        isMenuOpen = true;
+    }
+
+    private void CloseMenu()
+    {
+        Time.timeScale = 1;
+        fishCollectableMenu.SetActive(false);
+        if (gameplayCanvas != null) gameplayCanvas.SetActive(true);
+        isMenuOpen = false;
+    }
+
+    // Blocks opening the collection menu while a bullet hell challenge is active or results are being shown
+    private bool CanOpenMenu()
+    {
+        if (bullethellLogic != null && bullethellLogic.IsChallengeActive) return false;
+        if (ResultsManager.Instance != null && ResultsManager.Instance.IsResultsShown) return false;
+
+        return true;
     }
 
     public void AddFish(string fishName, SpriteRenderer fishSprite)

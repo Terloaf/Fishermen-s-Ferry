@@ -7,6 +7,7 @@ public class StartGame : MonoBehaviour
     public Animator animator;
     public UIManager uiManager;
     public BoatMover boatMover;
+    public CharacterController characterController; // the player's rotation controller
 
     [Tooltip("Name of the Animator state that plays when the game starts (used to detect when it finishes).")]
     [SerializeField] private string startStateName = "Start";
@@ -20,6 +21,8 @@ public class StartGame : MonoBehaviour
 
         uiManager.gameplayCanvas.enabled = false;
         fishingSystem.enabled = false;
+
+        if (characterController != null) characterController.CanRotate = false;
     }
 
     // Update is called once per frame
@@ -42,20 +45,23 @@ public class StartGame : MonoBehaviour
         // Wait one frame so the Animator has a chance to transition into the start state
         yield return null;
 
-        // Wait until the Animator enters the expected state
-        while (!animator.GetCurrentAnimatorStateInfo(0).IsName(startStateName))
-        {
-            yield return null;
-        }
+        Debug.Log("[StartGame] Waiting to enter state: " + startStateName);
 
-        // Wait until that state's normalized time reaches 1 (i.e. the clip finished playing once)
-        while (animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f)
-        {
+        while (!animator.GetCurrentAnimatorStateInfo(0).IsName(startStateName))
             yield return null;
-        }
+
+        Debug.Log("[StartGame] Entered start state, waiting for it to finish.");
+
+        while (animator.GetCurrentAnimatorStateInfo(0).normalizedTime % 1f < 0.99f 
+               && animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f)
+            yield return null;
+
+        Debug.Log("[StartGame] Start animation finished, enabling gameplay canvas.");
 
         fishingSystem.enabled = true;
         uiManager.gameplayCanvas.enabled = true;
         gameTimer.StartTimer();
+
+        if (characterController != null) characterController.CanRotate = true;
     }
 }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class FIshingSystem : MonoBehaviour
 {
@@ -28,12 +29,29 @@ public class FIshingSystem : MonoBehaviour
     [SerializeField] private float requiredFacingAngle = 0f;
     [SerializeField] private float facingAngleTolerance = 1f;
 
+    [Header("Bobber")]
+    [SerializeField] private Transform bobberTransform;
+    private Vector3 _bobberStartLocalPosition;
+    private Quaternion _bobberStartLocalRotation;
+
+    [Header("UI Hints")]
+    [SerializeField] private GameObject fishingHintUI;
+    [SerializeField] private TMP_Text fishingHintText;
+    [SerializeField] private string fishingHintMessage = "Press LMB to catch fish";
+
     private bool _challengeResultReceived;
     private bool _challengeSurvived;
 
     void Start()
     {
         fishCollectionManager = GameObject.Find("CollectionCanvas").GetComponent<FishCollectionManager>();
+
+        if (bobberTransform != null)
+        {
+            _bobberStartLocalPosition = bobberTransform.localPosition;
+            _bobberStartLocalRotation = bobberTransform.localRotation;
+        }
+
         // Ensure the bullet hell canvas starts fully hidden and non-interactive
         if (bulletHellCanvasGroup != null)
         {
@@ -64,9 +82,11 @@ public class FIshingSystem : MonoBehaviour
 
     void Update()
     {
+        UpdateFishingHint();
+
         if (Input.GetMouseButtonDown(0))
         {
-            if (!isFishing && IsFacingCorrectDirection())
+            if (!isFishing && IsFacingCorrectDirection() && !IsResultsShown())
             {
                 bool isCasting = animator.GetBool("isCasting");
                 animator.SetBool("isCasting", !isCasting);
@@ -98,6 +118,15 @@ public class FIshingSystem : MonoBehaviour
 
         if (mainCharacterController != null) mainCharacterController.enabled = true;
 
+        // If every fish type has already been caught, skip the bullet hell challenge entirely
+        if (fishTypes.Count == 0)
+        {
+            Debug.Log("All fish types have already been caught!");
+            animator.SetBool("isCasting", false);
+            isFishing = false;
+            yield break;
+        }
+
         selectedFish = fishTypes[UnityEngine.Random.Range(0, fishTypes.Count)];
 
         // Run the bullet hell challenge before reeling the fish in
@@ -111,11 +140,12 @@ public class FIshingSystem : MonoBehaviour
         }
         else
         {
-            FishEscaped(); // the fish breaks free from the hook, nothing else happens
+            FishEscaped();
         }
 
-        // Reset the rod/animation state so the player can cast again
         animator.SetBool("isCasting", false);
+        animator.Play("Idle", 0, 0f); // force-snap Animator to the idle state's first frame
+        ResetBobberPosition();
         isFishing = false;
     }
 
@@ -215,5 +245,31 @@ public class FIshingSystem : MonoBehaviour
     {
         // The fish breaks free from the hook; intentionally no reward/feedback beyond the rod resetting
         Debug.Log("The fish got away!");
+    }
+
+    private void ResetBobberPosition()
+    {
+        if (bobberTransform == null) return;
+
+        bobberTransform.localPosition = _bobberStartLocalPosition;
+        bobberTransform.localRotation = _bobberStartLocalRotation;
+    }
+
+    private bool IsResultsShown()
+    {
+        return ResultsManager.Instance != null && ResultsManager.Instance.IsResultsShown;
+    }
+
+    private void UpdateFishingHint()
+    {
+        if (fishingHintUI == null) return;
+
+        bool shouldShow = !isFishing && IsFacingCorrectDirection() && !IsResultsShown();
+        fishingHintUI.SetActive(shouldShow);
+
+        if (shouldShow && fishingHintText != null)
+        {
+            fishingHintText.text = fishingHintMessage;
+        }
     }
 }
