@@ -10,6 +10,9 @@ public class GameTimer : MonoBehaviour
     [SerializeField] private float maxTime;
     public bool isPlaying;
 
+    public event System.Action OnTimerEnded;
+    private bool _hasEnded;
+
     // How much time has passed since the timer started (in seconds)
     public float ElapsedTime => maxTime - timerTime;
 
@@ -28,7 +31,6 @@ public class GameTimer : MonoBehaviour
 
     void Start()
     {
-        
         timerTime = maxTime;
     }
 
@@ -37,7 +39,19 @@ public class GameTimer : MonoBehaviour
         isPlaying = true;
     }
 
-    private bool resultsShown;
+    // Pauses the countdown without resetting it (e.g. during dialogue)
+    public void PauseTimer()
+    {
+        isPlaying = false;
+    }
+
+    public void ResumeTimer()
+    {
+        if (!_hasEnded)
+        {
+            isPlaying = true;
+        }
+    }
 
     private void Update()
     {
@@ -45,20 +59,14 @@ public class GameTimer : MonoBehaviour
         {
             timerTime -= Time.deltaTime;
             timerBar.fillAmount = timerTime / maxTime;
-        }
 
-        if (timerTime <= 0 && !resultsShown)
-        {
-            isPlaying = false;
-            resultsShown = true;
-
-            if (ResultsScreen.Instance == null || FishCollectionManager.Instance == null)
+            if (timerTime <= 0f && !_hasEnded)
             {
-                Debug.LogError("GameTimer: Missing ResultsScreen or FishCollectionManager instance in scene.");
-                return;
+                timerTime = 0f;
+                isPlaying = false;
+                _hasEnded = true;
+                OnTimerEnded?.Invoke();
             }
-
-            ResultsScreen.Instance.ShowResults(FishCollectionManager.Instance.FishCount >= ResultsScreen.Instance.fishThershhold);
         }
     }
 }

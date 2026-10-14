@@ -10,8 +10,11 @@ public class PlayerInteractor : MonoBehaviour
     [Header("References")]
     [SerializeField] private CharacterController characterController; // used to disable movement during dialogue
 
-    // Prevents the same key press that closes a dialogue from immediately reopening it
+    [Header("UI Hints")]
+    [SerializeField] private GameObject dialogueHintUI;
+
     private bool _waitingForKeyRelease;
+    private DialogueTrigger _currentTarget;
 
     void OnEnable()
     {
@@ -20,6 +23,8 @@ public class PlayerInteractor : MonoBehaviour
             DialogueManager.Instance.OnDialogueStarted += HandleDialogueStarted;
             DialogueManager.Instance.OnDialogueEnded += HandleDialogueEnded;
         }
+
+        if (dialogueHintUI != null) dialogueHintUI.SetActive(false);
     }
 
     void OnDisable()
@@ -35,8 +40,11 @@ public class PlayerInteractor : MonoBehaviour
     {
         if (DialogueManager.Instance != null && DialogueManager.Instance.IsDialogueActive)
         {
+            SetHintVisible(false);
             return;
         }
+
+        UpdateInteractionHint();
 
         if (_waitingForKeyRelease)
         {
@@ -47,28 +55,39 @@ public class PlayerInteractor : MonoBehaviour
             return;
         }
 
-        if (Input.GetKeyDown(interactKey))
+        if (Input.GetKeyDown(interactKey) && _currentTarget != null)
         {
-            TryInteract();
+            _currentTarget.StartDialogue();
         }
     }
 
-    private void TryInteract()
+    // Checks each frame whether a DialogueTrigger is currently in front of the player, and shows/hides the hint
+    private void UpdateInteractionHint()
     {
-        // Cast forward from the player in the direction they're currently facing
         if (Physics.Raycast(transform.position, -transform.forward, out RaycastHit hit, interactRange, interactableLayer))
         {
             var trigger = hit.collider.GetComponent<DialogueTrigger>();
             if (trigger != null)
             {
-                trigger.StartDialogue();
+                _currentTarget = trigger;
+                SetHintVisible(true);
+                return;
             }
         }
+
+        _currentTarget = null;
+        SetHintVisible(false);
+    }
+
+    private void SetHintVisible(bool visible)
+    {
+        if (dialogueHintUI != null) dialogueHintUI.SetActive(visible);
     }
 
     private void HandleDialogueStarted()
     {
         if (characterController != null) characterController.enabled = false;
+        SetHintVisible(false);
     }
 
     private void HandleDialogueEnded()

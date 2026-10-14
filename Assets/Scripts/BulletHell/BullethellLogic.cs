@@ -17,6 +17,8 @@ public class BullethellLogic : MonoBehaviour
     private bool _challengeActive;
     private BulletHellPresetSO _preparedPreset;
 
+    public bool IsChallengeActive => _challengeActive;
+
     void OnEnable()
     {
         if (playerController != null)

@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bdc0f2077e310c242be1239e45640a8e, type: 3}
-  m_Name: SpiritTest
+  m_Name: SpiritPhase3
   m_EditorClassIdentifier: Assembly-CSharp::DialogueDataSO
   lines:
   - speakerName: Spirit
-    text: Hello Charon, thank you for taking me on you boat!
+    text: We are almost there, you need to catch the rest of the fish quickly!
     portrait: {fileID: 21300000, guid: e8746648f19c4b848b7e0391d4fc17ef, type: 3}
   - speakerName: Charon
-    text: Grrrjujrawoifjrifkfoe
+    text: Grrhhjjfjrhkdk
     portrait: {fileID: 21300000, guid: 5c36f07591d11264186cdea5fb342279, type: 3}
   - speakerName: Spirit
-    text: Yay it's fishing time!!!
+    text: Yay yay, more fish!!!
     portrait: {fileID: 21300000, guid: e8746648f19c4b848b7e0391d4fc17ef, type: 3}

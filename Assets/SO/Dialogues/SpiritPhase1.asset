@@ -10,12 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bdc0f2077e310c242be1239e45640a8e, type: 3}
-  m_Name: SpiritTest2
+  m_Name: SpiritPhase1
   m_EditorClassIdentifier: Assembly-CSharp::DialogueDataSO
   lines:
   - speakerName: Spirit
-    text: Now im saying different stuff, exicitng!!!!!
+    text: Wow Charon, didn't know you were such a good fisherman. You dodge all of
+      those rocks so good!
     portrait: {fileID: 21300000, guid: e8746648f19c4b848b7e0391d4fc17ef, type: 3}
   - speakerName: Charon
-    text: Gruhruhrgdtjkglfkl (six seven)
+    text: '*Mogging*'
     portrait: {fileID: 21300000, guid: 5c36f07591d11264186cdea5fb342279, type: 3}
+  - speakerName: Spirit
+    text: 'Way to go! Only a little bit more and you could get back your fishing
+      licence
+
+      (Come back later for new dialogue)'
+    portrait: {fileID: 21300000, guid: e8746648f19c4b848b7e0391d4fc17ef, type: 3}

@@ -66,6 +66,8 @@ public class DialogueManager : MonoBehaviour
 
         if (dialoguePanel != null) dialoguePanel.SetActive(true);
 
+        if (GameTimer.Instance != null) GameTimer.Instance.PauseTimer();
+
         OnDialogueStarted?.Invoke();
         ShowCurrentLine();
     }
@@ -132,6 +134,8 @@ public class DialogueManager : MonoBehaviour
         _currentDialogue = null;
 
         if (dialoguePanel != null) dialoguePanel.SetActive(false);
+
+        if (GameTimer.Instance != null) GameTimer.Instance.ResumeTimer();
 
         OnDialogueEnded?.Invoke();
     }
