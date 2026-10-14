@@ -3,7 +3,7 @@ using UnityEngine;
 public class PlayerHitDetector : MonoBehaviour
 {
     [Header("References")]
-    [SerializeField] private RectTransform playerRect;
+    [SerializeField] private CircleCollider2D playerCollider;
 
     [Header("Hit behaviour")]
     [SerializeField] private float invulnerabilityDuration = 0.5f;
@@ -15,18 +15,19 @@ public class PlayerHitDetector : MonoBehaviour
 
     void Update()
     {
-        if (playerRect == null) return;
+        if (playerCollider == null) return;
         if (Time.time < _invulnerableUntil) return;
 
-        Rect playerWorldRect = GetWorldRect(playerRect);
+        Vector2 playerCenter = GetWorldCenter(playerCollider);
+        float playerRadius = GetWorldRadius(playerCollider);
 
         foreach (var hazard in HazardZone.Active)
         {
             if (!hazard.IsActive) continue;
 
             bool overlapping = hazard.ZoneShape == HazardZone.Shape.Circle
-                ? CircleIntersectsRect(hazard.GetWorldCenter(), hazard.GetWorldRadius(), playerWorldRect)
-                : playerWorldRect.Overlaps(hazard.GetWorldRect());
+                ? CircleIntersectsCircle(playerCenter, playerRadius, hazard.GetWorldCenter(), hazard.GetWorldRadius())
+                : CircleIntersectsRect(playerCenter, playerRadius, hazard.GetWorldRect());
 
             if (overlapping)
             {
@@ -49,6 +50,17 @@ public class PlayerHitDetector : MonoBehaviour
         return distanceSquared <= radius * radius;
     }
 
+    // Standard circle-vs-circle overlap: distance between centers <= sum of radii
+    private bool CircleIntersectsCircle(Vector2 centerA, float radiusA, Vector2 centerB, float radiusB)
+    {
+        float dx = centerA.x - centerB.x;
+        float dy = centerA.y - centerB.y;
+        float distanceSquared = dx * dx + dy * dy;
+        float radiusSum = radiusA + radiusB;
+
+        return distanceSquared <= radiusSum * radiusSum;
+    }
+
     private void RegisterHit()
     {
         _invulnerableUntil = Time.time + invulnerabilityDuration;
@@ -61,10 +73,18 @@ public class PlayerHitDetector : MonoBehaviour
         OnPlayerHit?.Invoke();
     }
 
-    private Rect GetWorldRect(RectTransform rect)
+    // World-space center of a CircleCollider2D (accounts for the collider's local offset)
+    private Vector2 GetWorldCenter(CircleCollider2D collider)
     {
-        Vector3[] corners = new Vector3[4];
-        rect.GetWorldCorners(corners);
-        return new Rect(corners[0].x, corners[0].y, corners[2].x - corners[0].x, corners[2].y - corners[0].y);
+        return collider.transform.TransformPoint(collider.offset);
+    }
+
+    // World-space radius of a CircleCollider2D (accounts for non-uniform scale by using the largest axis,
+    // matching Unity's own internal approach for circle colliders)
+    private float GetWorldRadius(CircleCollider2D collider)
+    {
+        Vector3 lossyScale = collider.transform.lossyScale;
+        float maxScale = Mathf.Max(Mathf.Abs(lossyScale.x), Mathf.Abs(lossyScale.y));
+        return collider.radius * maxScale;
     }
 }
