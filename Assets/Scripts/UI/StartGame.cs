@@ -12,6 +12,12 @@ public class StartGame : MonoBehaviour
     [Tooltip("Name of the Animator state that plays when the game starts (used to detect when it finishes).")]
     [SerializeField] private string startStateName = "Start";
 
+    [Header("Start sprite fade (world-space)")]
+    [SerializeField] private SpriteRenderer fadeOutSprite; // sprite that disappears when the game starts
+    [SerializeField] private SpriteRenderer fadeInSprite;  // sprite that appears when the game starts
+    [SerializeField] private float fadeOutSpeed = 1f;      // alpha units per second
+    [SerializeField] private float fadeInSpeed = 1f;
+
     public GameTimer gameTimer;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -23,6 +29,10 @@ public class StartGame : MonoBehaviour
         fishingSystem.enabled = false;
 
         if (characterController != null) characterController.CanRotate = false;
+
+        // Make sure the sprites start in their expected visible/invisible state
+        SetSpriteAlpha(fadeOutSprite, 1f);
+        SetSpriteAlpha(fadeInSprite, 0f);
     }
 
     // Update is called once per frame
@@ -35,6 +45,9 @@ public class StartGame : MonoBehaviour
 
         boatMover.BeginMoving(); // start the boat moving
 
+        // Fade sprites in/out independently from the fishing/animation wait
+        if (fadeOutSprite != null) StartCoroutine(FadeSprite(fadeOutSprite, 0f, fadeOutSpeed));
+        if (fadeInSprite != null) StartCoroutine(FadeSprite(fadeInSprite, 1f, fadeInSpeed));
 
         // Keep fishing disabled until the start animation has fully played
         StartCoroutine(EnableFishingAfterAnimation());
@@ -44,6 +57,28 @@ public class StartGame : MonoBehaviour
     {
         Debug.Log("[StartGame] Quitting game.");
         Application.Quit();
+    }
+
+    private static void SetSpriteAlpha(SpriteRenderer sprite, float alpha)
+    {
+        if (sprite == null) return;
+        Color c = sprite.color;
+        c.a = alpha;
+        sprite.color = c;
+    }
+
+    // Smoothly moves a SpriteRenderer's alpha towards targetAlpha at the given speed (alpha units per second)
+    private IEnumerator FadeSprite(SpriteRenderer sprite, float targetAlpha, float speed)
+    {
+        while (!Mathf.Approximately(sprite.color.a, targetAlpha))
+        {
+            Color c = sprite.color;
+            c.a = Mathf.MoveTowards(c.a, targetAlpha, speed * Time.deltaTime);
+            sprite.color = c;
+            yield return null;
+        }
+
+        SetSpriteAlpha(sprite, targetAlpha);
     }
 
     private IEnumerator EnableFishingAfterAnimation()
@@ -67,6 +102,8 @@ public class StartGame : MonoBehaviour
         fishingSystem.enabled = true;
         uiManager.gameplayCanvas.enabled = true;
         gameTimer.StartTimer();
+
+        fadeInSprite.gameObject.SetActive(false); // hide the fade-in sprite now that the game has started
 
         if (characterController != null) characterController.CanRotate = true;
     }
