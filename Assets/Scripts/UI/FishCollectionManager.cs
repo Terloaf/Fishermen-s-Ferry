@@ -27,6 +27,10 @@ public class FishCollectionManager : MonoBehaviour
     [Tooltip("Maps each fish name to the dialogue that should play when talking to it.")]
     [SerializeField] private FishDialogueEntry[] fishDialogues;
 
+    [Header("Talk hands")]
+    [Tooltip("Animator controlling the hands sprite shown while talking to a fish.")]
+    [SerializeField] private TalkHandsAnimator handsAnimator;
+
     private FIshingSystem fishingSystem;
 
     public int FishCount
@@ -55,6 +59,22 @@ public class FishCollectionManager : MonoBehaviour
         Instance = this;
     }
 
+    private void OnEnable()
+    {
+        if (DialogueManager.Instance != null)
+        {
+            DialogueManager.Instance.OnDialogueEnded += HideHands;
+        }
+    }
+
+    private void OnDisable()
+    {
+        if (DialogueManager.Instance != null)
+        {
+            DialogueManager.Instance.OnDialogueEnded -= HideHands;
+        }
+    }
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -63,11 +83,11 @@ public class FishCollectionManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) && isMenuOpen)
+        if (Input.GetKeyDown(KeyCode.Q) && isMenuOpen)
         {
             CloseMenu();
         }
-        else if (Input.GetKeyDown(KeyCode.Escape) && !isMenuOpen && CanOpenMenu())
+        else if (Input.GetKeyDown(KeyCode.Q) && !isMenuOpen && CanOpenMenu())
         {
             OpenMenu();
         }
@@ -153,11 +173,31 @@ public class FishCollectionManager : MonoBehaviour
             return;
         }
 
+        ShowHands(selectedSlot);
+
         CloseMenu();
 
         if (DialogueManager.Instance != null)
         {
+            DialogueManager.Instance.OnDialogueEnded -= HideHands;
+            DialogueManager.Instance.OnDialogueEnded += HideHands;
             DialogueManager.Instance.BeginDialogue(dialogueToPlay);
+        }
+    }
+
+    private void ShowHands(FishSlot slot)
+    {
+        if (handsAnimator == null) return;
+
+        Sprite sprite = slot.image != null ? slot.image.sprite : null;
+        handsAnimator.Show(sprite);
+    }
+
+    private void HideHands()
+    {
+        if (handsAnimator != null)
+        {
+            handsAnimator.Hide();
         }
     }
 

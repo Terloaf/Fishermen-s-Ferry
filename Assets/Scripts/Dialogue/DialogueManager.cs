@@ -4,6 +4,12 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+public enum DialogueBoxPosition
+{
+    Top,
+    Bottom
+}
+
 public class DialogueManager : MonoBehaviour
 {
     public static DialogueManager Instance { get; private set; }
@@ -13,6 +19,10 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private TMP_Text speakerNameText;
     [SerializeField] private TMP_Text dialogueText;
     [SerializeField] private Image portraitImage;
+
+    [Header("Dialogue box position")]
+    [SerializeField] private DialogueBoxPosition boxPosition = DialogueBoxPosition.Bottom;
+    [SerializeField] private float edgeMargin = 20f;
 
     [Header("Typewriter settings")]
     [SerializeField] private float charactersPerSecond = 30f;
@@ -44,7 +54,44 @@ public class DialogueManager : MonoBehaviour
         Instance = this;
 
         if (dialoguePanel != null) dialoguePanel.SetActive(false);
+
+        ApplyBoxPosition(boxPosition);
     }
+
+    private void ApplyBoxPosition(DialogueBoxPosition position)
+    {
+        if (dialoguePanel == null) return;
+
+        var rect = dialoguePanel.GetComponent<RectTransform>();
+        if (rect == null) return;
+
+        switch (position)
+        {
+            case DialogueBoxPosition.Top:
+                rect.anchorMin = new Vector2(rect.anchorMin.x, 1f);
+                rect.anchorMax = new Vector2(rect.anchorMax.x, 1f);
+                rect.pivot = new Vector2(rect.pivot.x, 1f);
+                rect.anchoredPosition = new Vector2(rect.anchoredPosition.x, -edgeMargin);
+                break;
+
+            case DialogueBoxPosition.Bottom:
+                rect.anchorMin = new Vector2(rect.anchorMin.x, 0f);
+                rect.anchorMax = new Vector2(rect.anchorMax.x, 0f);
+                rect.pivot = new Vector2(rect.pivot.x, 0f);
+                rect.anchoredPosition = new Vector2(rect.anchoredPosition.x, edgeMargin);
+                break;
+        }
+    }
+
+#if UNITY_EDITOR
+    private void OnValidate()
+    {
+        if (dialoguePanel != null)
+        {
+            ApplyBoxPosition(boxPosition);
+        }
+    }
+#endif
 
     void Update()
     {
@@ -71,6 +118,8 @@ public class DialogueManager : MonoBehaviour
         _currentDialogue = data;
         _currentLineIndex = 0;
         IsDialogueActive = true;
+
+        ApplyBoxPosition(data != null && data.overrideBoxPosition ? data.boxPosition : boxPosition);
 
         if (dialoguePanel != null) dialoguePanel.SetActive(true);
 

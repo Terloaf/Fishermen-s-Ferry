@@ -11,5 +11,9 @@ public class DialogueDataSO : ScriptableObject
         public Sprite portrait; // optional, can be left empty
     }
 
+    [Header("Box position")]
+    public bool overrideBoxPosition;
+    public DialogueBoxPosition boxPosition = DialogueBoxPosition.Bottom;
+
     public DialogueLine[] lines;
 }

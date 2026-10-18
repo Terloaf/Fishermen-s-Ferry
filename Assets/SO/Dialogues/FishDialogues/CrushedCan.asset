@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdc0f2077e310c242be1239e45640a8e, type: 3}
   m_Name: CrushedCan
   m_EditorClassIdentifier: Assembly-CSharp::DialogueDataSO
+  overrideBoxPosition: 1
+  boxPosition: 0
   lines:
   - speakerName: Crushed Can
     text: ...
