@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using TMPro;
 using UnityEngine;
@@ -15,6 +16,13 @@ public class DialogueManager : MonoBehaviour
 
     [Header("Typewriter settings")]
     [SerializeField] private float charactersPerSecond = 30f;
+
+    [Header("Gameplay blocking during dialogue")]
+    [SerializeField] private GameObject gameplayCanvas; // hidden while a dialogue is active
+    [SerializeField] private CharacterController characterController; // rotation disabled during dialogue
+    [SerializeField] private FIshingSystem fishingSystem; // fishing disabled during dialogue
+    [SerializeField] private GameTimer gameTimer; // timer paused during dialogue
+    [SerializeField] private GameObject fishingCollectionCanvas; // hidden during dialogue
 
     public event System.Action OnDialogueStarted;
     public event System.Action OnDialogueEnded;
@@ -67,6 +75,13 @@ public class DialogueManager : MonoBehaviour
         if (dialoguePanel != null) dialoguePanel.SetActive(true);
 
         if (GameTimer.Instance != null) GameTimer.Instance.PauseTimer();
+
+        // Block gameplay while the dialogue is active
+        if (gameplayCanvas != null) gameplayCanvas.SetActive(false);
+        if (characterController != null) characterController.CanRotate = false;
+        if (fishingSystem != null) fishingSystem.enabled = false;
+        if (fishingCollectionCanvas != null) fishingCollectionCanvas.SetActive(false);
+        if (gameTimer != null) gameTimer.PauseTimer();
 
         OnDialogueStarted?.Invoke();
         ShowCurrentLine();
@@ -136,6 +151,13 @@ public class DialogueManager : MonoBehaviour
         if (dialoguePanel != null) dialoguePanel.SetActive(false);
 
         if (GameTimer.Instance != null) GameTimer.Instance.ResumeTimer();
+
+        // Restore gameplay now that the dialogue has ended
+        if (gameplayCanvas != null) gameplayCanvas.SetActive(true);
+        if (characterController != null) characterController.CanRotate = true;
+        if (fishingSystem != null) fishingSystem.enabled = true;
+        if (fishingCollectionCanvas != null) fishingCollectionCanvas.SetActive(true);
+        if (gameTimer != null) gameTimer.ResumeTimer();
 
         OnDialogueEnded?.Invoke();
     }

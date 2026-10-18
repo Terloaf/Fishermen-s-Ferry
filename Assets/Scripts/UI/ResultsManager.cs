@@ -23,7 +23,6 @@ public class ResultsManager : MonoBehaviour
 
     private bool _timerEnded;
     private bool _subscribed;
-    private bool _lastChallengeSurvived = true;
 
     void Awake()
     {
@@ -100,13 +99,11 @@ public class ResultsManager : MonoBehaviour
 
     private void HandleChallengeSurvived()
     {
-        _lastChallengeSurvived = true;
         if (_timerEnded) ShowResults();
     }
 
     private void HandleChallengeFailed()
     {
-        _lastChallengeSurvived = false;
         if (_timerEnded) ShowResults();
     }
 

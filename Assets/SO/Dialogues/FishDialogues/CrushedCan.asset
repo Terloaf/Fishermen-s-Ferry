@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bdc0f2077e310c242be1239e45640a8e, type: 3}
+  m_Name: CrushedCan
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueDataSO
+  lines:
+  - speakerName: Crushed Can
+    text: ...
+    portrait: {fileID: 21300000, guid: 0c148a239f4097b439adbf4adc05f996, type: 3}
+  - speakerName: Crushed Can
+    text: '*Metal Pipe Drop Sound Effect*'
+    portrait: {fileID: 21300000, guid: 0c148a239f4097b439adbf4adc05f996, type: 3}

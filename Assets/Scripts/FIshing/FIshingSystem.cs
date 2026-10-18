@@ -38,9 +38,12 @@ public class FIshingSystem : MonoBehaviour
     [SerializeField] private GameObject fishingHintUI;
     [SerializeField] private TMP_Text fishingHintText;
     [SerializeField] private string fishingHintMessage = "Press LMB to catch fish";
+    [SerializeField] private TMP_Text fishingResultText;
+    [SerializeField] private float fishingResultDisplayDuration = 4f;
 
     private bool _challengeResultReceived;
     private bool _challengeSurvived;
+    private Coroutine _fishingResultCoroutine;
 
     void Start()
     {
@@ -60,6 +63,8 @@ public class FIshingSystem : MonoBehaviour
             bulletHellCanvasGroup.interactable = false;
             bulletHellCanvasGroup.blocksRaycasts = false;
         }
+
+        fishingResultText.text = ""; // clear any previous result text
     }
 
     void OnEnable()
@@ -135,7 +140,7 @@ public class FIshingSystem : MonoBehaviour
         if (_challengeSurvived)
         {
             ReelInFish();
-            fishCollectionManager.AddFish(selectedFish.ToString(), selectedFish.GetComponent<SpriteRenderer>());
+            fishCollectionManager.AddFish(selectedFish.name, selectedFish.GetComponent<SpriteRenderer>());
             fishTypes.Remove(selectedFish);
         }
         else
@@ -237,14 +242,35 @@ public class FIshingSystem : MonoBehaviour
 
     private void ReelInFish()
     {
-        // TODO: instantiate/display selectedFish, add to inventory, play reel-in animation, etc.
         Debug.Log($"Caught: {selectedFish.name}");
+        fishingResultText.text = $"You caught {selectedFish.name}";
+
+        // Start the coroutine to clear the result text after a delay
+        if (_fishingResultCoroutine != null)
+        {
+            StopCoroutine(_fishingResultCoroutine);
+        }
+        _fishingResultCoroutine = StartCoroutine(ClearFishingResultTextAfterDelay(fishingResultDisplayDuration));
+    }
+
+    private IEnumerator ClearFishingResultTextAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        fishingResultText.text = "";
     }
 
     private void FishEscaped()
     {
-        // The fish breaks free from the hook; intentionally no reward/feedback beyond the rod resetting
+        // The fish breaks free from the hook; no reward beyond the rod resetting
         Debug.Log("The fish got away!");
+        fishingResultText.text = "The fish got away!";
+
+        // Start the coroutine to clear the result text after a delay
+        if (_fishingResultCoroutine != null)
+        {
+            StopCoroutine(_fishingResultCoroutine);
+        }
+        _fishingResultCoroutine = StartCoroutine(ClearFishingResultTextAfterDelay(fishingResultDisplayDuration));
     }
 
     private void ResetBobberPosition()

@@ -1,10 +1,12 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class FishCollectionManager : MonoBehaviour
 {
     public static FishCollectionManager Instance { get; private set; }
 
     public GameObject fishCollectableMenu;
+    [SerializeField] GameObject talkButton;
     private bool isMenuOpen;
     public FishSlot[] fishSlot;
 
@@ -13,6 +15,17 @@ public class FishCollectionManager : MonoBehaviour
 
     [Header("Canvas references")]
     [SerializeField] private GameObject gameplayCanvas; // hidden while the collection menu is open
+
+    [System.Serializable]
+    public struct FishDialogueEntry
+    {
+        public string fishName;
+        public DialogueDataSO dialogue;
+    }
+
+    [Header("Fish dialogues")]
+    [Tooltip("Maps each fish name to the dialogue that should play when talking to it.")]
+    [SerializeField] private FishDialogueEntry[] fishDialogues;
 
     private FIshingSystem fishingSystem;
 
@@ -64,6 +77,7 @@ public class FishCollectionManager : MonoBehaviour
     {
         Time.timeScale = 0;
         fishCollectableMenu.SetActive(true);
+        talkButton.SetActive(true);
         if (gameplayCanvas != null) gameplayCanvas.SetActive(false);
         fishingSystem.isFishing = true;
         isMenuOpen = true;
@@ -73,6 +87,7 @@ public class FishCollectionManager : MonoBehaviour
     {
         Time.timeScale = 1;
         fishCollectableMenu.SetActive(false);
+        talkButton.SetActive(false);
         if (gameplayCanvas != null) gameplayCanvas.SetActive(true);
         fishingSystem.isFishing = false;
         isMenuOpen = false;
@@ -107,5 +122,57 @@ public class FishCollectionManager : MonoBehaviour
             fishSlot[i].selectedSahder.SetActive(false);
             fishSlot[i].thisFishSelected = false;
         }
+    }
+
+    // Called by the "Talk" button. Finds the currently selected filled slot,
+    // looks up the dialogue matching its fish, starts it, and closes the collection menu.
+    public void TalkToSelectedFish()
+    {
+        FishSlot selectedSlot = null;
+
+        for (int i = 0; i < fishSlot.Length; i++)
+        {
+            if (fishSlot[i].thisFishSelected && fishSlot[i].isFilled)
+            {
+                selectedSlot = fishSlot[i];
+                break;
+            }
+        }
+
+        if (selectedSlot == null)
+        {
+            Debug.Log("[FishCollectionManager] No fish slot selected, cannot talk.");
+            return;
+        }
+
+        DialogueDataSO dialogueToPlay = FindDialogueForFish(selectedSlot.fishName);
+
+        if (dialogueToPlay == null)
+        {
+            Debug.LogWarning($"[FishCollectionManager] No dialogue found for fish '{selectedSlot.fishName}'.");
+            return;
+        }
+
+        CloseMenu();
+
+        if (DialogueManager.Instance != null)
+        {
+            DialogueManager.Instance.BeginDialogue(dialogueToPlay);
+        }
+    }
+
+    private DialogueDataSO FindDialogueForFish(string fishName)
+    {
+        if (fishDialogues == null) return null;
+
+        foreach (var entry in fishDialogues)
+        {
+            if (entry.fishName == fishName)
+            {
+                return entry.dialogue;
+            }
+        }
+
+        return null;
     }
 }
