@@ -33,6 +33,9 @@ public class StartGame : MonoBehaviour
         // Make sure the sprites start in their expected visible/invisible state
         SetSpriteAlpha(fadeOutSprite, 1f);
         SetSpriteAlpha(fadeInSprite, 0f);
+
+        AudioManager.Instance.Play("BoatAmbience");
+        AudioManager.Instance.PlayMusic("WaterAmbience");
     }
 
     // Update is called once per frame
@@ -40,6 +43,7 @@ public class StartGame : MonoBehaviour
 
     public void OnGameStart()
     {
+        AudioManager.Instance.Play("ButtonClick");
         animator.SetBool("Start", true);
         uiManager.startCanvas.enabled = false;
 

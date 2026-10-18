@@ -176,6 +176,7 @@ public class DialogueManager : MonoBehaviour
         foreach (char c in fullText)
         {
             dialogueText.text += c;
+            AudioManager.Instance?.Play("DialogueSound"); // Play a sound for each character typed
             yield return new WaitForSeconds(delay);
         }
 

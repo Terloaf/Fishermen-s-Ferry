@@ -68,7 +68,7 @@ MonoBehaviour:
       orientation: 1
       overrideRadius: 0
       radius: 0
-      overrideSize: 1
+      overrideSize: 0
       size: 5
       overrideSpeed: 0
       speed: 0
@@ -335,7 +335,7 @@ MonoBehaviour:
       overridePosition: 1
       position: {x: -0.6, y: -0.6}
       overrideOrientation: 0
-      orientation: 1
+      orientation: 0
       overrideRadius: 0
       radius: 0
       overrideSize: 1
@@ -350,7 +350,7 @@ MonoBehaviour:
       overridePosition: 1
       position: {x: 0.6, y: 0.6}
       overrideOrientation: 0
-      orientation: 1
+      orientation: 0
       overrideRadius: 0
       radius: 0
       overrideSize: 1

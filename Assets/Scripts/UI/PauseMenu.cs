@@ -37,6 +37,7 @@ public class PauseMenu : MonoBehaviour
 
     public void Resume()
     {
+        AudioManager.Instance.Play("ButtonClick");
         pauseMenuUI.SetActive(false);
         gameplayUI.SetActive(true);
         Time.timeScale = 1f;
@@ -44,6 +45,7 @@ public class PauseMenu : MonoBehaviour
 
     public void QuitToMenu()
     {
+        AudioManager.Instance.Play("ButtonClick");
         Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }

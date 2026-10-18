@@ -118,6 +118,17 @@ public class FIshingSystem : MonoBehaviour
         // Prevent turning while the player is waiting for a bite
         if (mainCharacterController != null) mainCharacterController.enabled = false;
 
+        // Wait for the casting animation to finish (bobber lands in the water), then play the splash
+        if (castingLine != null)
+        {
+            yield return new WaitForSeconds(castingLine.length);
+        }
+
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.Play("Splash");
+        }
+
         // Wait for a bite
         yield return StartCoroutine(WaitForBite());
 
