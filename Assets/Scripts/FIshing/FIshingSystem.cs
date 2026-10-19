@@ -99,7 +99,7 @@ public class FIshingSystem : MonoBehaviour
                 isFishing = true;
                 StartCoroutine(FishingSequence());
             }
-            else if (FishCollectionManager.Instance.FishCount >= 10)
+            else if (!isFishing &&IsFacingCorrectDirection() && !IsResultsShown() && FishCollectionManager.Instance.FishCount >= 10)
             {
                 fishingResultText.text = "You have already caught all the fish!";
                 if (_fishingResultCoroutine != null)
