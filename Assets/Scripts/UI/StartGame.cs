@@ -47,6 +47,7 @@ public class StartGame : MonoBehaviour
         AudioManager.Instance.Play("ButtonClick");
         animator.SetBool("Start", true);
         uiManager.startCanvas.enabled = false;
+        PauseMenu.Instance.canPause = true; // allow pausing now that the game has started
 
         boatMover.BeginMoving(); // start the boat moving
 
