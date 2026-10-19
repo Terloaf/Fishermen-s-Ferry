@@ -402,7 +402,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BullethellLogic
   availablePresets:
   - {fileID: 11400000, guid: 86aca01f744ff8c49bb51a3f69cd0994, type: 2}
+  - {fileID: 11400000, guid: e166dfd188e3dab4a9796f5625ac4166, type: 2}
   - {fileID: 11400000, guid: a907350d470a2c246a0fb1ce8d35d72d, type: 2}
+  - {fileID: 11400000, guid: 85b487afa5748ad4e9fbd4ceac2469e5, type: 2}
+  - {fileID: 11400000, guid: 3a28db53cae40d34c952d61961df8bf1, type: 2}
   context: {fileID: 3252921397351109447}
   playerController: {fileID: 1930070999125691820}
   endBuffer: 1.5

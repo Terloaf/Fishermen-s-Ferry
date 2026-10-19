@@ -16,5 +16,15 @@ MonoBehaviour:
   boxPosition: 0
   lines:
   - speakerName: Walleye
-    text: 
+    text: 'Hello fellow fisherman, I am as well kind of a fisherman ya know? '
+    portrait: {fileID: 21300000, guid: 7bd123f49c7494f439edca57b0c5ebdb, type: 3}
+  - speakerName: Walleye
+    text: 'Because I am a fish man he-he-he, you get it? I''m a fish, and a man,
+      trapped in a fish, so yea.... '
+    portrait: {fileID: 21300000, guid: 7bd123f49c7494f439edca57b0c5ebdb, type: 3}
+  - speakerName: Charon
+    text: .............
+    portrait: {fileID: 21300000, guid: 0265ebc6d721d9e4c9506fc79de4ea9c, type: 3}
+  - speakerName: Walleye
+    text: Please laugh.
     portrait: {fileID: 21300000, guid: 7bd123f49c7494f439edca57b0c5ebdb, type: 3}

@@ -334,8 +334,8 @@ MonoBehaviour:
     overrides:
       overridePosition: 1
       position: {x: -0.6, y: -0.6}
-      overrideOrientation: 0
-      orientation: 0
+      overrideOrientation: 1
+      orientation: 1
       overrideRadius: 0
       radius: 0
       overrideSize: 1
@@ -349,8 +349,8 @@ MonoBehaviour:
     overrides:
       overridePosition: 1
       position: {x: 0.6, y: 0.6}
-      overrideOrientation: 0
-      orientation: 0
+      overrideOrientation: 1
+      orientation: 1
       overrideRadius: 0
       radius: 0
       overrideSize: 1

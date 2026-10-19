@@ -16,5 +16,15 @@ MonoBehaviour:
   boxPosition: 0
   lines:
   - speakerName: Gar
-    text: 
+    text: Well hello hello Charon, what brings you here at this time of a day in
+      hell?
+    portrait: {fileID: 21300000, guid: 8bc5bf75a67b1b147b5dd7c37592cda1, type: 3}
+  - speakerName: Gar
+    text: I honestly don't even know if it's day outside right now...
+    portrait: {fileID: 21300000, guid: 8bc5bf75a67b1b147b5dd7c37592cda1, type: 3}
+  - speakerName: Charon
+    text: Grhththjjgghtt
+    portrait: {fileID: 21300000, guid: 0265ebc6d721d9e4c9506fc79de4ea9c, type: 3}
+  - speakerName: Gar
+    text: Talkative as always my friend, well see you later alligator
     portrait: {fileID: 21300000, guid: 8bc5bf75a67b1b147b5dd7c37592cda1, type: 3}

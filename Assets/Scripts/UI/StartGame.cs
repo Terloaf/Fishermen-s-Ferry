@@ -15,6 +15,7 @@ public class StartGame : MonoBehaviour
     [Header("Start sprite fade (world-space)")]
     [SerializeField] private SpriteRenderer fadeOutSprite; // sprite that disappears when the game starts
     [SerializeField] private SpriteRenderer fadeInSprite;  // sprite that appears when the game starts
+    [SerializeField] private SpriteRenderer titleScreen;
     [SerializeField] private float fadeOutSpeed = 1f;      // alpha units per second
     [SerializeField] private float fadeInSpeed = 1f;
 
@@ -51,6 +52,7 @@ public class StartGame : MonoBehaviour
 
         // Fade sprites in/out independently from the fishing/animation wait
         if (fadeOutSprite != null) StartCoroutine(FadeSprite(fadeOutSprite, 0f, fadeOutSpeed));
+        if (titleScreen != null) StartCoroutine(FadeSprite(titleScreen, 0f, fadeOutSpeed));
         if (fadeInSprite != null) StartCoroutine(FadeSprite(fadeInSprite, 1f, fadeInSpeed));
 
         // Keep fishing disabled until the start animation has fully played

@@ -16,5 +16,14 @@ MonoBehaviour:
   boxPosition: 0
   lines:
   - speakerName: Moon Fish
-    text: 
+    text: HUh??? who's there??/
+    portrait: {fileID: 21300000, guid: b1fbf9d2a3ad0cc489a358dc78a16c6b, type: 3}
+  - speakerName: Moon Fish
+    text: I was asleep you scared me man what the hell!!!
+    portrait: {fileID: 21300000, guid: b1fbf9d2a3ad0cc489a358dc78a16c6b, type: 3}
+  - speakerName: Moon Fish
+    text: What even are you doing? FISHING??????
+    portrait: {fileID: 21300000, guid: b1fbf9d2a3ad0cc489a358dc78a16c6b, type: 3}
+  - speakerName: Moon Fish
+    text: Get the hell out of here bro, I'm going back to sleep
     portrait: {fileID: 21300000, guid: b1fbf9d2a3ad0cc489a358dc78a16c6b, type: 3}

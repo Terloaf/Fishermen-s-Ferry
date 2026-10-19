@@ -118,6 +118,7 @@ public class FishCollectionManager : MonoBehaviour
     {
         if (bullethellLogic != null && bullethellLogic.IsChallengeActive) return false;
         if (ResultsManager.Instance != null && ResultsManager.Instance.IsResultsShown) return false;
+        if (fishingSystem != null && fishingSystem.isFishing) return false;
 
         return true;
     }
@@ -183,6 +184,8 @@ public class FishCollectionManager : MonoBehaviour
             DialogueManager.Instance.OnDialogueEnded += HideHands;
             DialogueManager.Instance.BeginDialogue(dialogueToPlay);
         }
+
+        AudioManager.Instance.Play("ButtonClick");
     }
 
     private void ShowHands(FishSlot slot)

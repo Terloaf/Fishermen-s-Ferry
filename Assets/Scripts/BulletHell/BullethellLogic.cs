@@ -116,14 +116,32 @@ public class BullethellLogic : MonoBehaviour
         OnChallengeFailed?.Invoke();
     }
 
-    // Destroys any hazard zones still active in the scene (e.g. if the challenge ends early)
+    // Destroys any hazard zones still active in the scene (e.g. if the challenge ends early),
+    // including telegraph/warning objects that haven't registered themselves as a HazardZone yet.
     private void CleanupActiveHazards()
     {
+        // Remove any registered active hazard zones first
         for (int i = HazardZone.Active.Count - 1; i >= 0; i--)
         {
             if (HazardZone.Active[i] != null)
             {
                 Destroy(HazardZone.Active[i].gameObject);
+            }
+        }
+
+        // Also destroy any leftover spawned objects (e.g. telegraphs that never became active,
+        // projectiles still in flight) that are still parented under the arena
+        if (context != null && context.SpawnParent != null)
+        {
+            Transform spawnParent = context.SpawnParent;
+            for (int i = spawnParent.childCount - 1; i >= 0; i--)
+            {
+                var child = spawnParent.GetChild(i);
+
+                // Never destroy the player object itself
+                if (context.player != null && child == context.player) continue;
+
+                Destroy(child.gameObject);
             }
         }
     }

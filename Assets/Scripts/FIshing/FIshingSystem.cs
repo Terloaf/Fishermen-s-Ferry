@@ -91,13 +91,22 @@ public class FIshingSystem : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
-            if (!isFishing && IsFacingCorrectDirection() && !IsResultsShown())
+            if (!isFishing && IsFacingCorrectDirection() && !IsResultsShown() && FishCollectionManager.Instance.FishCount < 10)
             {
                 bool isCasting = animator.GetBool("isCasting");
                 animator.SetBool("isCasting", !isCasting);
 
                 isFishing = true;
                 StartCoroutine(FishingSequence());
+            }
+            else if (FishCollectionManager.Instance.FishCount >= 10)
+            {
+                fishingResultText.text = "You have already caught all the fish!";
+                if (_fishingResultCoroutine != null)
+                {
+                    StopCoroutine(_fishingResultCoroutine);
+                }
+                _fishingResultCoroutine = StartCoroutine(ClearFishingResultTextAfterDelay(fishingResultDisplayDuration));
             }
         }
     }
